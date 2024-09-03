@@ -4,14 +4,12 @@ RUN apk add --no-cache nginx
 
 COPY nginx.conf /etc/nginx/nginx.conf
 
-RUN mkdir -p /usr/share/nginx/html && \
-    echo "<html><body><h1>Welcome to Nginx on Alpine!</h1></body></html>" > /usr/share/nginx/html/index.html
+RUN mkdir -p /var/www/html/
 
 COPY myserver.crt /etc/ssl/certs/myserver.crt
 
 COPY myserver.key /etc/ssl/private/myserver.key
 
-EXPOSE 80
+EXPOSE 443
 
 CMD ["nginx", "-g", "daemon off;"]
-
