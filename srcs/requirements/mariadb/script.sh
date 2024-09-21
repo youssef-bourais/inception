@@ -19,6 +19,7 @@ done
 echo -e "MySQL is ready."
 
 echo -e "Creating SQL initialization script..."
+
 echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '$DB_ROOT_PASSWD';" > /tmp/init.sql
 echo "CREATE DATABASE IF NOT EXISTS $DB_NAME ;" >> /tmp/init.sql
 echo "CREATE USER IF NOT EXISTS '$DB_USER'@'%' IDENTIFIED BY '$DB_PASSWD' ;" >> /tmp/init.sql
@@ -28,6 +29,7 @@ echo "FLUSH PRIVILEGES;" >> /tmp/init.sql
 
 echo -e "Applying SQL commands..."
 mysql < /tmp/init.sql
+
 if [ $? -eq 0 ]; then
     echo -e "SQL commands applied successfully."
 else

@@ -34,6 +34,7 @@ else
     exit 1
 fi
 
+#wp core install --url="https://$DOMAIN_NAME" --title="$WP_TITLE" --admin_user=$WP_ADMIN_USER --admin_password=$WP_ADMIN_PASSWD --admin_email=$WP_ADMIN_EMAIL --skip-email --allow-root
 echo "Installing WordPress..."
 wp core install --url="https://$DOMAIN_NAME" --title="$WP_TITLE" --admin_user=$WP_ADMIN_USER --admin_password=$WP_ADMIN_PASSWD --admin_email=$WP_ADMIN_EMAIL --skip-email --allow-root
 if [ $? -eq 0 ]; then
@@ -42,10 +43,10 @@ else
     echo "Failed to install WordPress."
     exit 1
 fi
-
 echo "Updating WordPress options..."
-wp option update siteurl "https://$DOMAIN_NAME" --allow-root
-wp option update home "https://$DOMAIN_NAME" --allow-root
+wp option update siteurl "https://localhost" --allow-root
+wp option update home "https://localhost" --allow-root
+
 if [ $? -eq 0 ]; then
     echo "WordPress options updated successfully."
 else

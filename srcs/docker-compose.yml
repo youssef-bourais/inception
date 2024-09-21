@@ -1,0 +1,31 @@
+services:
+  mariadb:
+    container_name: mariadb
+    image: mariadb
+    volumes:
+      - '/home/ybourais/data/db:/var/www/db'
+    networks:
+      - network
+    restart: always
+    env_file:
+      - /home/ybourais/inception/srcs/.env
+  php-fpm:
+    container_name: php-fpm
+    image: php-fpm
+    volumes:
+      - '/home/ybourais/data/wp:/var/www/html'
+    networks:
+      - network
+    restart: always
+    env_file:
+      - /home/ybourais/inception/srcs/.env
+  nginx:
+    container_name: nginx
+    image: nginx
+    volumes:
+      - '/home/ybourais/data/wp:/var/www/html'
+    ports:
+      - '443:443'
+    networks:
+      - network
+    restart: always
