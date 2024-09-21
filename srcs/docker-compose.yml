@@ -4,7 +4,7 @@ services:
     image: mariadb:42
     build: ./requirements/mariadb
     volumes:
-      - '/home/ybourais/data/db:/var/www/db'
+      - /home/ybourais/data/db:/var/www/db
     networks:
       - network
     restart: on-failure
@@ -17,7 +17,7 @@ services:
     depends_on:
       - mariadb
     volumes:
-      - '/home/ybourais/data/wp:/var/www/html'
+      - /home/ybourais/data/wp:/var/www/html
     networks:
       - network
     restart: on-failure
@@ -30,7 +30,7 @@ services:
       - php-fpm
     image: nginx:42
     volumes:
-      - '/home/ybourais/data/wp:/var/www/html'
+      - /home/ybourais/data/wp:/var/www/html
     ports:
       - '443:443'
     networks:
@@ -38,5 +38,9 @@ services:
     restart: on-failure
 networks:
     network:
-      name: network
+volumes:
+    wordpress:
       external: true
+    mariadb:
+      external: true
+
