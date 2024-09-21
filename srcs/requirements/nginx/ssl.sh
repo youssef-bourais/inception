@@ -39,3 +39,8 @@ fi
 echo "Starting Nginx..."
 nginx -g "daemon off;"
 
+
+#if [ -d /var/lib/mysql/databasename ] ; then 
+	    # Do Stuff ...
+	    # fi
+	    #
