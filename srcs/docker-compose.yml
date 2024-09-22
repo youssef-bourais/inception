@@ -4,10 +4,10 @@ services:
     image: mariadb:42
     build: ./requirements/mariadb
     volumes:
-      - /home/ybourais/data/db:/var/www/db
+      - mariadb_data:/var/lib/mysql
     networks:
       - network
-    restart: on-failure
+    restart: always
     env_file:
       - /home/ybourais/inception/srcs/.env
   php-fpm:
@@ -17,10 +17,10 @@ services:
     depends_on:
       - mariadb
     volumes:
-      - /home/ybourais/data/wp:/var/www/html
+      - wordpress_data:/var/www/html
     networks:
       - network
-    restart: on-failure
+    restart: always
     env_file:
       - /home/ybourais/inception/srcs/.env
   nginx:
@@ -30,17 +30,25 @@ services:
       - php-fpm
     image: nginx:42
     volumes:
-      - /home/ybourais/data/wp:/var/www/html
+      - wordpress_data:/var/www/html
     ports:
       - '443:443'
     networks:
       - network
-    restart: on-failure
+    restart: always
 networks:
     network:
-volumes:
-    wordpress:
-      external: true
-    mariadb:
-      external: true
 
+volumes:
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/ybourais/data/db
+      o: bind
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/ybourais/data/wp
+      o: bind

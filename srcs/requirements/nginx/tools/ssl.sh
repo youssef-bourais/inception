@@ -8,6 +8,7 @@ echo "Creating necessary directories..."
 mkdir -p /var/www/html/
 mkdir -p /etc/ssl/certs /etc/ssl/private
 
+
 if [ -f /etc/ssl/certs/myserver.crt ] ; then 
 
 	echo "crt aleady there...."
@@ -47,5 +48,3 @@ echo "Starting Nginx..."
 nginx -g "daemon off;"
 
 
-	    # Do Stuff ...
-	    #

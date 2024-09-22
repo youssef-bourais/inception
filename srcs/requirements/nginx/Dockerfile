@@ -4,7 +4,7 @@ RUN apk add --no-cache nginx openssl
 
 COPY nginx.conf /etc/nginx/nginx.conf
 
-COPY ssl.sh /usr/local/bin/
+COPY ./tools/ssl.sh /usr/local/bin/
 
 RUN chmod +x /usr/local/bin/ssl.sh
 

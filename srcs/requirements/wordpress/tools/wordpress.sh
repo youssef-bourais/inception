@@ -20,6 +20,7 @@ mv wp-cli.phar /usr/local/bin/wp
 if [ -f /var/www/html/wp-config.php ]; then
 	echo "Wp already Config already there...."
 else
+	rm -rf *
 	echo "Downloading WordPress core..."
 	wp core download --allow-root
 	if [ $? -eq 0 ]; then
@@ -39,16 +40,16 @@ else
 	fi
 
 	echo "Installing WordPress..."
-	wp core install --url="https://$DOMAIN_NAME" --title="$WP_TITLE" --admin_user=$WP_ADMIN_USER --admin_password=$WP_ADMIN_PASSWD --admin_email=$WP_ADMIN_EMAIL --skip-email --allow-root
+	wp core install --url=$DOMAIN_NAME --title=$WP_TITLE --admin_user=$WP_ADMIN_USER --admin_password=$WP_ADMIN_PASSWD --admin_email=$WP_ADMIN_EMAIL --skip-email --allow-root
 	if [ $? -eq 0 ]; then
 	    echo "WordPress installed successfully."
 	else
 	    echo "Failed to install WordPress."
 	    exit 1
 	fi
-	echo "Updating WordPress options..."
-	wp option update siteurl "https://localhost" --allow-root
-	wp option update home "https://localhost" --allow-root
+	#echo "Updating WordPress options..."
+	#wp option update siteurl "https://localhost" --allow-root
+	#wp option update home "https://localhost" --allow-root
 
 	if [ $? -eq 0 ]; then
 	    echo "WordPress options updated successfully."
@@ -67,6 +68,10 @@ else
 	fi
 fi
 
+chown -R www-data:www-data /var/www/html/*
+chmod -R 755 /var/www/html/*
+
 echo "Starting PHP-FPM..."
 php-fpm7.4 -F
+
 
